@@ -9,18 +9,30 @@ def parsed_page
 end 
 
 def scrape_depute
-page = parsed_page
-names_array = []
-noms = []
+  page = parsed_page
+  full_names_array = []
+  noms = []
+  email_array = []
 
-    noms = page.xpath('//*[@class="titre_normal"]')
-    noms.each do |elem|
-        names_array << { :first_name => elem.text.split(" ")[1], :last_name => elem.text.split(" ")[2] }
-    end
+  noms = page.xpath('//*[@class="titre_normal"]')
+  noms.each do |elem|
+    full_names_array << { :first_name => elem.text.split(" ")[1], :last_name => elem.text.split(" ")[2] }
+  end
 
-      email = page.xpath('//*[contains(text(), "@assemblee-nationale.fr")]')
+    email = page.xpath('//*[contains(text(), "@assemblee-nationale.fr")]')
 
-return names_array
+      email.each do |elem|
+        email_array <<  elem.text[1..-1]
+        end
+
+        email_array.delete("bureau-m-orphelin@assemblee-nationale.fr")
+        email_array.delete("secretariat-blanchet@assemblee-nationale.fr")
+
+        full_names_array.map.with_index do |hash, i| 
+            hash[:email] = email_array[i]
+          end
+  puts full_names_array
+  return full_names_array
 end
 
 scrape_depute
