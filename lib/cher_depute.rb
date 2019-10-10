@@ -45,4 +45,4 @@ def scrape_deputies
   return full_names_array
 end
 
-scrape_depute
+scrape_deputies
