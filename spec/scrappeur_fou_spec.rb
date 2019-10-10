@@ -1,7 +1,13 @@
-require '../lib/scrappeur_fou'
+require_relative '../lib/scrappeur_fou'
 
 
-describe "the scrapp_names method" do
-    it "Should return an array of strings"
-    expect scrapp_names().to_not be_empty
+describe "the perform method" do
+  it "Should not be empty" do
+    expect(perform).to_not be_empty
+  end
+
+  it "Should return an array of strings" do
+    expect(perform).to be_instance_of Array
+  end
+
 end
