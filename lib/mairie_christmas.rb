@@ -15,7 +15,7 @@ def open_links(arg)
         emails_array << new_url.xpath('//*[contains(text(), "@")]').text
   end
     
-  town_names.each_with_index do |k, v| 
+  $town_names.each_with_index do |k, v| 
     result << {k => (emails_array)[v]}
   end
 
@@ -35,14 +35,14 @@ def get_townhall_urls
 		end
 
 		full_url = []
-    town_names = []
+    $town_names = []
     # Boucle créant deux array, l'un avec les noms des maires, l'autre avec les liens complets vers les pages contenant les adresses mail
 		url_list.each do |elem|
-      town_names << elem[0..-5].to_sym
+      $town_names << elem[0..-5].to_sym
       # On ajoute #{nom_de_la_mairie.html} à "http://annuaire-des-mairies.com/95/" pour former les liens complets, stockés dans un array
 			full_url << "http://annuaire-des-mairies.com/95/#{elem}"
     end
-		open_links(town_names)
+		open_links($town_names)
   return full_url
 end
 
